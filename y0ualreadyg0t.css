@@ -1,0 +1,23 @@
+/* styles.css (ou um arquivo CSS específico para esta página) */
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #222; /* Fundo cinza escuro */
+    color: #fff; /* Texto branco */
+    padding: 50px;
+  }
+  
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color: #f00; /* Vermelho para destacar */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Adiciona uma sombra ao texto */
+  }
+  
+  p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    max-width: 600px;
+    margin: 0 auto; /* Centraliza o texto */
+  }

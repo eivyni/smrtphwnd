@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Smartphowned</title>
+    <link rel="stylesheet" href="css\styles.css">
+</head>
+<body>
+    <h1>You know what needs to be done...</h1>
+    <div id="countdown"></div>
+
+    <div id="video-container">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/T_Jqrs4VNTk" 
+                title="YouTube video player" frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+        </iframe>
+    </div>
+    
+    <div id="button-container">
+        <a href="inside.html" class="mysterious-button">Explore Inside</a>
+    </div>
+
+    <div id="image-container">
+        <img src="img\logo.png" alt="Smartphowned">
+    </div>
+
+    <script>
+        const targetDate = new Date("Dec 31, 2024 23:59:59").getTime();
+
+        const countdownInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("countdown").innerHTML =
+                days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "I really hope you made it...";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
