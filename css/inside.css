@@ -15,7 +15,7 @@ body {
 
 .container {
     max-width: 800px;
-    background-color: #747578; /* Fundo cinza muito escuro */
+    background-color: #182126; /* Fundo cinza muito escuro */
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
@@ -50,7 +50,7 @@ h1 {
 .mysterious-button {
     display: inline-block;
     padding: 15px 30px;
-    background-color: #182126; /* Fundo cinza escuro */
+    background-color: #141414; /* Fundo cinza escuro */
     color: #edf2f4; /* Texto branco */
     text-transform: uppercase;
     font-weight: bold;
