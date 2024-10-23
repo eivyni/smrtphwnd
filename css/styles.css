@@ -1,26 +1,26 @@
 body {
     font-family: Arial, sans-serif;
     text-align: center;
-    background-color: #171717;
-    color: #ececec;
+    background-color: #141414;
+    color: #EDF2F4;
     margin-top: 50px;
 }
 
 h1 {
     font-size: 36px;
-    color: #ececec;
+    color: #EDF2F4;
     margin-bottom: 20px;
 }
 
 #countdown {
     font-size: 50px;
     font-weight: bold;
-    color: #ff3419;
+    color: #710928;
     margin-top: 20px;
 }
 
 #countdown.finished {
-    color: #008000;
+    color: #EDF2F4;
     font-size: 40px;
 }
 
@@ -50,8 +50,8 @@ h1 {
     display: inline-block;
     padding: 15px 30px;
     margin: 20px auto;
-    background-color: #333333;
-    color: #FFFFFF;
+    background-color: #747578;
+    color: #EDF2F4;
     text-transform: uppercase;
     font-weight: bold;
     font-size: 18px;
@@ -62,7 +62,7 @@ h1 {
 }
 
 .mysterious-button:hover {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: #EDF2F4;
+    color: #710928;
     transform: scale(1.05);
 }
