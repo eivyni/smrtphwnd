@@ -3,51 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Smartphowned</title>
-    <link rel="stylesheet" href="css\styles.css">
+    <title>O Mistério do Desconhecido</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>You know what needs to be done...</h1>
-    <div id="countdown"></div>
-
-    <div id="video-container">
-        <iframe style="border-radius:12px" 
-            src="https://open.spotify.com/embed/album/2KHyqfZAuuQjjzCOH2octO?utm_source=generator" 
-            width="100%" height="352" frameBorder="0" 
-            allowfullscreen="" 
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-            loading="lazy">
-        </iframe>
-    </div>
+    <header>
+        <h1>O Mistério do Desconhecido</h1>
+        <nav>
+            <ul>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#enigmas">Enigmas</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
     
-    <div id="button-container">
-        <a href="inside.html" class="mysterious-button">Explore Inside</a>
-    </div>
+    <main>
+        <section id="sobre">
+            <h2>Sobre</h2>
+            <p class="hover-text">Descubra os segredos que estão escondidos nas sombras. <span class="tooltip">Cada clique pode revelar um novo mistério.</span></p>
+        </section>
+        
+        <section id="enigmas">
+            <h2>Enigmas</h2>
+            <p>Resolva os enigmas para desbloquear novos conteúdos e descobrir mais sobre o desconhecido.</p>
+            <button class="enigmas-button" onclick="revealMessage()">Começar</button>
+            <p id="hidden-message" class="hidden">Você encontrou uma mensagem secreta! Continue explorando...</p>
+        </section>
+        
+        <section id="contato">
+            <h2>Contato</h2>
+            <p>Tem alguma dúvida? Entre em contato e vamos desvendar juntos os mistérios!</p>
+            <form>
+                <input type="text" placeholder="Seu Nome" required>
+                <input type="email" placeholder="Seu Email" required>
+                <textarea placeholder="Sua Mensagem" required></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2023 O Mistério do Desconhecido. Todos os direitos reservados.</p>
+    </footer>
 
-    <div id="image-container">
-        <img src="img\logo.png" alt="Smartphowned">
-    </div>
-
-    <script>
-        const targetDate = new Date("Dec 31, 2024 23:59:59").getTime();
-
-        const countdownInterval = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("countdown").innerHTML =
-                days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                document.getElementById("countdown").innerHTML = "I really hope you made it...";
-            }
-        }, 1000);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
