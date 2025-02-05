@@ -28,6 +28,7 @@
             margin-top: 20px; /* Espaço entre o texto e a imagem */
             max-width: 100%; /* A imagem não ultrapassa a largura da tela */
             height: auto; /* Mantém a proporção da imagem */
+            cursor: pointer; /* Muda o cursor para indicar que a imagem é clicável */
         }
 
         @media (max-width: 600px) {
@@ -42,10 +43,44 @@
         <h1>you was smartphOWNED by VYNIIIII☆☆</h1>
     </header>
     <main>
-        <img src="https://i.ibb.co/BfB7n7M/0cde5f5c3aa0c8195b267e5ef2026444.jpg" alt="vyni">
+        <img id="interactive-image" src="https://i.ibb.co/BfB7n7M/0cde5f5c3aa0c8195b267e5ef2026444.jpg" alt="vyni">
     </main>
     <footer>
         <!-- Informações adicionais ou links podem ser adicionados aqui -->
     </footer>
+
+    <script>
+        // Array com as URLs das imagens que você deseja alternar
+        const images = [
+            "https://i.ibb.co/BfB7n7M/0cde5f5c3aa0c8195b267e5ef2026444.jpg",
+            "https://i.pinimg.com/736x/f5/fd/57/f5fd5750360325832c8359c1397be936.jpg",
+            "https://i.pinimg.com/736x/40/c4/70/40c47027e1a997ba18b290d6730e706b.jpg",
+            "https://i.pinimg.com/736x/b2/16/b7/b216b7c4bbded91cadea92da4a8b94b6.jpg",
+            "https://i.pinimg.com/736x/dc/dd/5d/dcdd5db945c85aa5dbc67b6b02e80dcf.jpg",
+            "https://i.pinimg.com/736x/3f/39/57/3f39577d2898d0d593244564dedb7d2c.jpg",
+            "https://i.pinimg.com/736x/71/ea/fa/71eafaf73bfac096d243c3d9f598444e.jpg",
+            "https://i.pinimg.com/736x/65/ce/d2/65ced29f92a22294bcb3d8d2c0e63d0b.jpg",
+            "https://i.pinimg.com/736x/86/17/ed/8617ede46b34e5e1ebcad12c29e58118.jpg",
+            "https://i.pinimg.com/736x/9a/52/0a/9a520af329612ea3a09b8defcd8d6614.jpg",
+            "https://i.pinimg.com/736x/70/1c/a9/701ca9308a20e397b4bb48f00a6a8376.jpg",
+            "https://i.pinimg.com/736x/a6/98/eb/a698ebf78fc2064877c752c4d72457e6.jpg",
+            "https://i.pinimg.com/736x/03/ac/d9/03acd950f63bb3997375ca4d30b1e853.jpg",
+            "https://i.pinimg.com/736x/5d/4e/4a/5d4e4a87aee8336b1a71dba95872fc81.jpg",
+            "https://i.pinimg.com/736x/6d/ec/d5/6decd52c8828587f6aae7958c58263ee.jpg",
+            // Adicione mais URLs de imagens conforme necessário
+        ];
+
+        let currentImageIndex = 0;
+
+        // Função para mudar a imagem
+        function changeImage() {
+            const imageElement = document.getElementById('interactive-image');
+            currentImageIndex = (currentImageIndex + 1) % images.length; // Avança para a próxima imagem
+            imageElement.src = images[currentImageIndex]; // Atualiza o src da imagem
+        }
+
+        // Adiciona um evento de clique à imagem
+        document.getElementById('interactive-image').addEventListener('click', changeImage);
+    </script>
 </body>
 </html>
