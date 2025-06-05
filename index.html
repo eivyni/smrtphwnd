@@ -3,102 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vitæ eterna</title>
-  <style>
-    body {
-      margin: 0;
-      background-color: #000;
-      color: #f2f2f2;
-      font-family: 'Georgia', serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-      position: relative;
-      padding-bottom: 100px; /* espaço pro rodapé */
-    }
-
-    h1 {
-      font-size: 3rem;
-      letter-spacing: 3px;
-      margin-bottom: 1.5rem;
-      text-transform: uppercase;
-    }
-
-    p {
-      font-size: 1.3rem;
-      max-width: 600px;
-      color: #cccccc;
-      font-style: italic;
-      margin-bottom: 2rem;
-    }
-
-    .glitch {
-      animation: glitch 3s infinite;
-    }
-
-    @keyframes glitch {
-      0% { text-shadow: 2px 0 red, -2px 0 blue; }
-      20% { text-shadow: -2px 0 red, 2px 0 blue; }
-      40% { text-shadow: 2px 2px red, -2px -2px blue; }
-      60% { text-shadow: -2px 2px red, 2px -2px blue; }
-      80% { text-shadow: 2px 0 red, -2px 0 blue; }
-      100% { text-shadow: none; }
-    }
-
-    .countdown {
-      font-size: 1.1rem;
-      letter-spacing: 1px;
-      margin-bottom: 2rem;
-      color: #aaaaaa;
-    }
-
-    footer {
-      position: absolute;
-      bottom: 20px;
-      width: 100%;
-      text-align: center;
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-  </style>
+  <title>Acervo de Textos - Vitæ eterna</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1 class="glitch">Vitæ eterna</h1>
-  <p>С нами Бог</p>
+  <div class="container">
+    <h2>Meus Textos</h2>
+    <ul class="text-list" id="textsList">
+      <!-- Os textos serão carregados aqui dinamicamente com JavaScript/Firebase -->
+      <li><a href="text-view.html?id=exemplo1">Título do Primeiro Texto Exemplo</a></li>
+      <li><a href="text-view.html?id=exemplo2">Outro Texto Fascinante</a></li>
+      <!-- Adicione mais exemplos se desejar, ou aguarde a integração com o banco de dados -->
+    </ul>
 
-  <div class="countdown" id="countdown">Carregando...</div>
+    <div class="navigation-links">
+        <a href="index.html">Voltar para Início</a>
+        <!-- Futuramente, um link para "Adicionar Novo Texto" pode vir aqui -->
+    </div>
+  </div>
 
   <footer>
     © 2025 Smartphowned, Inc. All Rights Reserved.
   </footer>
 
   <script>
-    const countdownEl = document.getElementById('countdown');
-    const targetDate = new Date("2025-05-31T00:00:00");
-
-    function updateCountdown() {
-      const now = new Date();
-      const diff = targetDate - now;
-
-      if (diff <= 0) {
-        countdownEl.textContent = "O tempo chegou.";
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-
-      countdownEl.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+    // No futuro, este script irá buscar os textos do Firebase e popular a lista.
+    // Por enquanto, a lista é estática no HTML.
   </script>
 </body>
 </html>
