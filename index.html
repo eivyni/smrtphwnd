@@ -5,11 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vitæ eterna - Início</title>
   <link rel="stylesheet" href="style.css"> <!-- Link para o CSS externo -->
+  <style>
+    /* Estilos incorporados para garantir o alinhamento central do conteúdo principal */
+    .container {
+      /* Estas regras ajudam a centrar o container e seu texto,
+         complementando ou reforçando o style.css externo.
+         A centralização horizontal do bloco .container é geralmente
+         controlada pelas propriedades flex do body em style.css (align-items: center).
+         margin-left: auto e margin-right: auto são um fallback ou reforço. */
+      margin-left: auto;
+      margin-right: auto;
+      /* text-align: center é crucial para o conteúdo de texto dentro do container.
+         Isto deve ser herdado do body (definido em style.css) mas é reforçado aqui. */
+      text-align: center;
+    }
+
+    /* Para parágrafos dentro do container, especialmente se tiverem max-width
+       e precisarem ser centrados como blocos. */
+    .container p {
+        /* max-width é definido em style.css (ex: 800px) */
+        /* Se o parágrafo for mais estreito que o .container devido ao max-width,
+           as margens automáticas o centralizarão. */
+        margin-left: auto;
+        margin-right: auto;
+        /* text-align: center; para o texto dentro do parágrafo é herdado do .container */
+    }
+  </style>
 </head>
 <body>
   <div class="container">
     <h1 class="glitch-title">Vitæ eterna</h1>
     <p>С нами Бог</p>
+    <p>Bem-vindo ao meu acervo de reflexões e narrativas. Explore os textos através do portal abaixo.</p>
   </div>
 
   <div class="admin-button-container">
