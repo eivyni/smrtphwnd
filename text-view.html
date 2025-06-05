@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leitura do Texto - Vitæ eterna</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <article class="text-content" id="textContent">
+      <!-- O título e conteúdo do texto serão carregados aqui -->
+      <h2>Carregando Título...</h2>
+      <p>Carregando conteúdo...</p>
+    </article>
+
+    <div class="navigation-links">
+        <a href="texts.html">Voltar para a Lista de Textos</a>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Smartphowned, Inc. All Rights Reserved.
+  </footer>
+
+  <script>
+    // Este script irá buscar o ID do texto da URL e carregar o conteúdo correspondente.
+    // Por agora, vamos simular o carregamento de um texto de exemplo.
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const textId = params.get('id');
+      const textContentDiv = document.getElementById('textContent');
+
+      // Textos de exemplo (simulando um banco de dados)
+      const exampleTexts = {
+        'exemplo1': {
+          title: 'Título do Primeiro Texto Exemplo',
+          content: '<p>Este é o parágrafo inicial do primeiro texto. Ele serve como um exemplo de como o conteúdo será exibido.</p><p>Aqui poderia haver uma exploração mais profunda de ideias, narrativas ou poesias, fluindo através de múltiplos parágrafos e desenvolvendo o tema central.</p><p>A estrutura permite uma leitura focada, com o estilo minimalista ajudando a manter a atenção no que realmente importa: as palavras.</p>'
+        },
+        'exemplo2': {
+          title: 'Outro Texto Fascinante',
+          content: '<p>Este é o segundo texto, demonstrando a capacidade de exibir diferentes conteúdos dinamicamente.</p><p>Imagine este espaço preenchido com suas próprias criações, cada uma acessível através de um simples clique na lista.</p><p>A flexibilidade do sistema permitirá que você adicione, edite e organize seus textos com facilidade assim que o banco de dados for implementado.</p>'
+        },
+        'default': {
+            title: 'Texto Não Encontrado',
+            content: '<p>O texto solicitado não foi encontrado. Por favor, verifique o link ou volte para a lista de textos.</p>'
+        }
+      };
+
+      const textToDisplay = exampleTexts[textId] || exampleTexts['default'];
+
+      if (textContentDiv) {
+        textContentDiv.innerHTML = `<h2>${textToDisplay.title}</h2>${textToDisplay.content}`;
+        document.title = `${textToDisplay.title} - Vitæ eterna`; // Atualiza o título da aba
+      } else {
+        console.error("Elemento 'textContent' não encontrado.");
+      }
+    });
+  </script>
+</body>
+</html>
