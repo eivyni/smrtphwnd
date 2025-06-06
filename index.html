@@ -34,29 +34,108 @@
 </head>
 <body>
   
-    <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-analytics.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
+    <!-- Firebase App (Core) -->
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+  import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+  import { getFirestore, collection, addDoc, getDocs, doc, getDoc, setDoc, deleteDoc, onSnapshot, query, where, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js"; // Opcional, se você habilitou o Analytics
 
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-      apiKey: "AIzaSyDmrACpzmjDwLsHKeWJbl2gvPVOEgQo9AI",
-      authDomain: "acervo-de-textos.firebaseapp.com",
-      projectId: "acervo-de-textos",
-      storageBucket: "acervo-de-textos.firebasestorage.app",
-      messagingSenderId: "896013927777",
-      appId: "1:896013927777:web:0e648e34fdd73cfcfcb120",
-      measurementId: "G-32BCSHQ5RP"
-    };
+  // Sua configuração do Firebase (ou use as variáveis globais do Canvas)
+  const firebaseConfigFromGlobal = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+  const initialAuthTokenFromGlobal = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+  const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'; // ID do App para caminhos do Firestore
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-  </script>
+  // Fallback para configuração manual se as globais não estiverem disponíveis (não ideal para Canvas)
+ // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDmrACpzmjDwLsHKeWJbl2gvPVOEgQo9AI",
+  authDomain: "acervo-de-textos.firebaseapp.com",
+  projectId: "acervo-de-textos",
+  storageBucket: "acervo-de-textos.firebasestorage.app",
+  messagingSenderId: "896013927777",
+  appId: "1:896013927777:web:0e648e34fdd73cfcfcb120",
+  measurementId: "G-32BCSHQ5RP"
+};
+
+  let app;
+  let auth;
+  let db;
+  let userId;
+
+  try {
+    app = initializeApp(firebaseConfig);
+    auth = getAuth(app);
+    db = getFirestore(app);
+    // const analytics = getAnalytics(app); // Opcional
+
+    // Configurar log para debug (útil durante o desenvolvimento)
+    //firebase.firestore.setLogLevel('debug'); // Para versões mais antigas. Para v9+, o log é mais complexo de habilitar fora do Node.js
+
+    console.log("Firebase SDKs carregados e app inicializado.");
+
+    // Autenticação
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        // Usuário está logado
+        userId = user.uid;
+        console.log("Usuário autenticado:", userId);
+        // Aqui você pode chamar funções que dependem do usuário estar logado
+        // e do db estar pronto, como carregar os textos.
+        // Ex: loadTexts(); (você criará essa função)
+      } else {
+        // Usuário não está logado
+        console.log("Usuário não autenticado, tentando login anônimo ou com token...");
+        try {
+          if (initialAuthTokenFromGlobal) {
+            await signInWithCustomToken(auth, initialAuthTokenFromGlobal);
+            console.log("Login com token customizado bem-sucedido.");
+          } else {
+            await signInAnonymously(auth);
+            console.log("Login anônimo bem-sucedido.");
+          }
+          // O listener onAuthStateChanged será chamado novamente após o login
+        } catch (error) {
+          console.error("Erro na autenticação:", error);
+          // Tratar falha de login (ex: mostrar mensagem para o usuário)
+        }
+      }
+    });
+
+  } catch (e) {
+    console.error("Erro ao inicializar o Firebase:", e);
+    // Adicione uma mensagem para o usuário na interface, se apropriado
+    const body = document.querySelector('body');
+    if (body) {
+        const errorDiv = document.createElement('div');
+        errorDiv.textContent = 'Erro ao conectar com o servidor de dados. Tente recarregar a página.';
+        errorDiv.style.color = 'red';
+        errorDiv.style.backgroundColor = 'black';
+        errorDiv.style.padding = '10px';
+        errorDiv.style.textAlign = 'center';
+        errorDiv.style.position = 'fixed';
+        errorDiv.style.top = '0';
+        errorDiv.style.left = '0';
+        errorDiv.style.width = '100%';
+        errorDiv.style.zIndex = '9999';
+        body.prepend(errorDiv);
+    }
+  }
+
+  // Exporte as instâncias para usar em outros scripts, se necessário,
+  // ou coloque toda a lógica do Firebase aqui ou chame funções daqui.
+  // Ex: window.db = db; window.collection = collection; window.addDoc = addDoc; (não é a melhor prática, mas funciona)
+
+  // --- SUAS FUNÇÕES PARA INTERAGIR COM O FIRESTORE VIRÃO AQUI ---
+  // Exemplo:
+  // window.loadTexts = async () => { ... };
+  // window.getTextById = async (id) => { ... };
+  // window.addText = async (title, content) => { ... };
+
+</script>
+<!-- Seus outros scripts (ex: texts.js, text-view.js) virão DEPOIS do SDK do Firebase -->
+<!-- <script src="texts.js"></script> -->
   
   <div class="container">
     <h1 class="glitch-title">Vitæ eterna</h1>
