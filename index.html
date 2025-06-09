@@ -1,155 +1,158 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vitæ eterna - Início</title>
-  <link rel="stylesheet" href="style.css"> <!-- Link para o CSS externo -->
-  <style>
-    /* Estilos incorporados para garantir o alinhamento central do conteúdo principal */
-    .container {
-      /* Estas regras ajudam a centrar o container e seu texto,
-         complementando ou reforçando o style.css externo.
-         A centralização horizontal do bloco .container é geralmente
-         controlada pelas propriedades flex do body em style.css (align-items: center).
-         margin-left: auto e margin-right: auto são um fallback ou reforço. */
-      margin-left: auto;
-      margin-right: auto;
-      /* text-align: center é crucial para o conteúdo de texto dentro do container.
-         Isto deve ser herdado do body (definido em style.css) mas é reforçado aqui. */
-      text-align: center;
-    }
-
-    /* Para parágrafos dentro do container, especialmente se tiverem max-width
-       e precisarem ser centrados como blocos. */
-    .container p {
-        /* max-width é definido em style.css (ex: 800px) */
-        /* Se o parágrafo for mais estreito que o .container devido ao max-width,
-           as margens automáticas o centralizarão. */
-        margin-left: auto;
-        margin-right: auto;
-        /* text-align: center; para o texto dentro do parágrafo é herdado do .container */
-    }
-  </style>
-</head>
-<body>
-  
-    <!-- Firebase App (Core) -->
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-  import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-  import { getFirestore, collection, addDoc, getDocs, doc, getDoc, setDoc, deleteDoc, onSnapshot, query, where, orderBy } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-analytics.js"; // Opcional, se você habilitou o Analytics
-
-  // Sua configuração do Firebase (ou use as variáveis globais do Canvas)
-  const firebaseConfigFromGlobal = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
-  const initialAuthTokenFromGlobal = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-  const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'; // ID do App para caminhos do Firestore
-
-  // Fallback para configuração manual se as globais não estiverem disponíveis (não ideal para Canvas)
- // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyDmrACpzmjDwLsHKeWJbl2gvPVOEgQo9AI",
-  authDomain: "acervo-de-textos.firebaseapp.com",
-  projectId: "acervo-de-textos",
-  storageBucket: "acervo-de-textos.firebasestorage.app",
-  messagingSenderId: "896013927777",
-  appId: "1:896013927777:web:0e648e34fdd73cfcfcb120",
-  measurementId: "G-32BCSHQ5RP"
-};
-
-  let app;
-  let auth;
-  let db;
-  let userId;
-
-  try {
-    app = initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    db = getFirestore(app);
-    // const analytics = getAnalytics(app); // Opcional
-
-    // Configurar log para debug (útil durante o desenvolvimento)
-    //firebase.firestore.setLogLevel('debug'); // Para versões mais antigas. Para v9+, o log é mais complexo de habilitar fora do Node.js
-
-    console.log("Firebase SDKs carregados e app inicializado.");
-
-    // Autenticação
-    onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        // Usuário está logado
-        userId = user.uid;
-        console.log("Usuário autenticado:", userId);
-        // Aqui você pode chamar funções que dependem do usuário estar logado
-        // e do db estar pronto, como carregar os textos.
-        // Ex: loadTexts(); (você criará essa função)
-      } else {
-        // Usuário não está logado
-        console.log("Usuário não autenticado, tentando login anônimo ou com token...");
-        try {
-          if (initialAuthTokenFromGlobal) {
-            await signInWithCustomToken(auth, initialAuthTokenFromGlobal);
-            console.log("Login com token customizado bem-sucedido.");
-          } else {
-            await signInAnonymously(auth);
-            console.log("Login anônimo bem-sucedido.");
-          }
-          // O listener onAuthStateChanged será chamado novamente após o login
-        } catch (error) {
-          console.error("Erro na autenticação:", error);
-          // Tratar falha de login (ex: mostrar mensagem para o usuário)
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vyni</title>
+    <!-- Incluindo Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Incluindo Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: url('https://images.unsplash.com/photo-1531366936337-7c912a4589a7?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
-      }
-    });
+        .overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        .text-glow {
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+        .icon-glow {
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="text-white">
+    <!-- Contêiner principal com sobreposição escura -->
+    <div class="overlay flex items-center justify-center min-h-screen w-full">
+        <!-- Cartão de conteúdo central -->
+        <main class="text-center p-8 fade-in">
+            <!-- Nome de usuário principal -->
+            <h1 class="text-6xl md:text-8xl font-bold mb-2 text-glow">vyni</h1>
+            <!-- Slogan/Status -->
+            <p class="text-lg md:text-xl text-gray-300 mb-8 text-glow">С нами Бог</p>
 
-  } catch (e) {
-    console.error("Erro ao inicializar o Firebase:", e);
-    // Adicione uma mensagem para o usuário na interface, se apropriado
-    const body = document.querySelector('body');
-    if (body) {
-        const errorDiv = document.createElement('div');
-        errorDiv.textContent = 'Erro ao conectar com o servidor de dados. Tente recarregar a página.';
-        errorDiv.style.color = 'red';
-        errorDiv.style.backgroundColor = 'black';
-        errorDiv.style.padding = '10px';
-        errorDiv.style.textAlign = 'center';
-        errorDiv.style.position = 'fixed';
-        errorDiv.style.top = '0';
-        errorDiv.style.left = '0';
-        errorDiv.style.width = '100%';
-        errorDiv.style.zIndex = '9999';
-        body.prepend(errorDiv);
-    }
-  }
+            <!-- Seção de Status do Discord -->
+            <!-- Cartão para quando há uma atividade (jogo, música, etc.) -->
+            <div id="discord-status-card" class="bg-black/30 backdrop-blur-sm border border-white/10 rounded-lg p-4 flex items-center justify-center space-x-4 max-w-sm mx-auto mb-8 hidden">
+                <img id="game-asset-large" src="" alt="Ícone da Atividade" class="w-16 h-16 rounded-md border-2 border-white/20">
+                <div>
+                    <p id="activity-name" class="font-semibold text-lg"></p>
+                    <p id="activity-details" class="text-gray-400"></p>
+                    <p id="activity-state" class="text-gray-400"></p>
+                </div>
+            </div>
+            <!-- Cartão para status genérico (Online/Offline) -->
+            <div id="generic-status" class="bg-black/30 backdrop-blur-sm border border-white/10 rounded-lg p-4 flex items-center justify-center space-x-4 max-w-sm mx-auto mb-8">
+                <p class="text-gray-400">Carregando status...</p>
+            </div>
 
-  // Exporte as instâncias para usar em outros scripts, se necessário,
-  // ou coloque toda a lógica do Firebase aqui ou chame funções daqui.
-  // Ex: window.db = db; window.collection = collection; window.addDoc = addDoc; (não é a melhor prática, mas funciona)
+            <!-- Ícones de Redes Sociais -->
+            <div class="flex justify-center space-x-6">
+                <a href="https://open.spotify.com/user/viniciusdonat22?si=53d560e3beac4fad" class="text-gray-300 hover:text-white transition-colors duration-300 transform hover:scale-110"><i class="fab fa-spotify fa-2x icon-glow"></i></a>
+                <a href="https://x.com/eivyni" class="text-gray-300 hover:text-white transition-colors duration-300 transform hover:scale-110"><i class="fab fa-twitter fa-2x icon-glow"></i></a>
+                <a href="https://steamcommunity.com/id/eivyni" class="text-gray-300 hover:text-white transition-colors duration-300 transform hover:scale-110"><i class="fab fa-steam fa-2x icon-glow"></i></a>
+                <a href="https://www.instagram.com/eivyni" class="text-gray-300 hover:text-white transition-colors duration-300 transform hover:scale-110"><i class="fab fa-instagram fa-2x icon-glow"></i></a>
+                <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300 transform hover:scale-110"><i class="fab fa-discord fa-2x icon-glow"></i></a>
+            </div>
+        </main>
+    </div>
 
-  // --- SUAS FUNÇÕES PARA INTERAGIR COM O FIRESTORE VIRÃO AQUI ---
-  // Exemplo:
-  // window.loadTexts = async () => { ... };
-  // window.getTextById = async (id) => { ... };
-  // window.addText = async (title, content) => { ... };
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // =========================================================================
+            // IMPORTANTE: Substitua 'SEU_ID_DO_DISCORD_AQUI' pelo seu ID de usuário.
+            // Veja como encontrar seu ID: https://support.discord.com/hc/pt-br/articles/206346498-Onde-posso-encontrar-minhas-IDs-de-Usu%C3%A1rio-Servidor-Mensagem
+            // =========================================================================
+            const discordUserId = '337662173897555991'; // ID de exemplo para demonstração. COLE O SEU AQUI!
 
-</script>
-<!-- Seus outros scripts (ex: texts.js, text-view.js) virão DEPOIS do SDK do Firebase -->
-<!-- <script src="texts.js"></script> -->
-  
-  <div class="container">
-    <h1 class="glitch-title">Vitæ eterna</h1>
-    <p>С нами Бог</p>
-    <p>Bem-vindo ao meu acervo de reflexões e narrativas. Explore os textos através do portal abaixo.</p>
-  </div>
+            const statusCard = document.getElementById('discord-status-card');
+            const genericStatus = document.getElementById('generic-status');
+            
+            const activityAsset = document.getElementById('game-asset-large');
+            const activityName = document.getElementById('activity-name');
+            const activityDetails = document.getElementById('activity-details');
+            const activityState = document.getElementById('activity-state');
 
-  <div class="admin-button-container">
-    <a href="texts.html" class="admin-button">Ver Textos</a>
-  </div>
+            const lanyardApiUrl = `https://api.lanyard.rest/v1/users/${discordUserId}`;
 
-  <footer>
-    © 2025 Smartphowned, Inc. All Rights Reserved.
-  </footer>
+            async function updateDiscordStatus() {
+                try {
+                    const response = await fetch(lanyardApiUrl);
+                    if (!response.ok) {
+                        showStatus('Indisponível');
+                        return;
+                    }
 
+                    const { data } = await response.json();
+
+                    if (data.discord_status === 'offline') {
+                        showStatus('Offline');
+                        return;
+                    }
+
+                    // Procura por uma atividade principal como jogo ou VS Code
+                    const main_activity = data.activities.find(act => act.type === 0);
+                    // Procura pelo Spotify
+                    const spotify_activity = data.spotify;
+
+                    if (main_activity) {
+                        activityName.textContent = main_activity.name;
+                        activityDetails.textContent = main_activity.details || '';
+                        activityState.textContent = main_activity.state || '';
+
+                        if (main_activity.assets && main_activity.assets.large_image) {
+                            activityAsset.src = `https://cdn.discordapp.com/app-assets/${main_activity.application_id}/${main_activity.assets.large_image}.png`;
+                        } else {
+                            activityAsset.src = `https://placehold.co/64x64/1a202c/ffffff?text=${main_activity.name.substring(0,3)}`;
+                        }
+                        showStatusCard('activity');
+
+                    } else if (spotify_activity) {
+                        activityName.textContent = "Ouvindo Spotify";
+                        activityDetails.textContent = spotify_activity.song;
+                        activityState.textContent = `por ${spotify_activity.artist}`;
+                        activityAsset.src = spotify_activity.album_art_url;
+                        showStatusCard('activity');
+
+                    } else {
+                         showStatus(data.discord_status.charAt(0).toUpperCase() + data.discord_status.slice(1));
+                    }
+
+                } catch (error) {
+                    console.error('Falha ao atualizar o status do Discord:', error);
+                    showStatus('Erro');
+                }
+            }
+            
+            function showStatus(statusText) {
+                genericStatus.classList.remove('hidden');
+                statusCard.classList.add('hidden');
+                genericStatus.querySelector('p').textContent = statusText;
+            }
+
+            function showStatusCard() {
+                genericStatus.classList.add('hidden');
+                statusCard.classList.remove('hidden');
+            }
+
+            // Atualiza o status quando a página carrega e depois a cada 15 segundos
+            updateDiscordStatus();
+            setInterval(updateDiscordStatus, 15000); // 15000 ms = 15 segundos
+        });
+    </script>
 </body>
 </html>
