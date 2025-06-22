@@ -1,27 +1,154 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Um enigma te aguarda."
-    />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Um enigma te aguarda.">
+    <title>O Enigma</title>
 
-    <!-- Adicionando a fonte do Google Fonts -->
+    <!-- 1. FONTE DO GOOGLE -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 
+    <!-- 2. ESTILOS CSS -->
+    <style>
+        /* Reset básico e configurações do corpo da página */
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
 
-    <title>O Enigma</title>
-  </head>
-  <body>
-    <noscript>Você precisa habilitar o JavaScript para rodar este app.</noscript>
+            /* O fundo escuro e misterioso. Não é preto puro, o que é mais suave para os olhos. */
+            background-color: #0a0a14;
+        }
+
+        /* Container principal da aplicação */
+        #root {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #e0e0e0; /* Cor de texto suave, não branco puro */
+            font-family: 'Cinzel', serif; /* Nossa fonte enigmática */
+            overflow: hidden; /* Garante que nada "vaze" durante as animações */
+        }
+
+        /* Wrapper para o conteúdo que vai ser animado */
+        .content-wrapper {
+            /* Animação de fade-in para o conteúdo aparecer suavemente */
+            animation: fadeIn 3s ease-in-out forwards;
+            opacity: 0; /* Começa invisível */
+            transform: translateY(20px); /* Começa um pouco abaixo para um efeito de "subida" */
+        }
+
+        /* Título Principal */
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 4px; /* Espaçamento entre letras para um ar mais grandioso */
+            margin-bottom: 1rem;
+            
+            /* Sombra sutil que dá um brilho roxo ao texto */
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+        }
+
+        /* Parágrafo de texto */
+        .subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem auto;
+            line-height: 1.6;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+
+        /* Botão de Call-to-Action */
+        .cta-button {
+            background: transparent;
+            border: 2px solid #8A2BE2; /* Roxo Azulado (BlueViolet) */
+            color: #e0e0e0;
+            padding: 15px 30px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 2px;
+            transition: all 0.4s ease; /* Transição suave para o efeito hover */
+            
+            /* Animação de pulsação sutil para chamar a atenção */
+            animation: pulse 2.5s infinite ease-in-out;
+        }
+
+        /* Efeito hover para o botão */
+        .cta-button:hover {
+            background: #8A2BE2;
+            color: #0a0a14; /* Cor do texto muda para a cor de fundo */
+            box-shadow: 0 0 25px #8A2BE2; /* Efeito de brilho intenso */
+            animation-play-state: paused; /* Pausa a animação de pulso no hover */
+        }
+
+        /* Keyframes para as animações */
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 10px rgba(138, 43, 226, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(138, 43, 226, 0.8); }
+            100% { transform: scale(1); box-shadow: 0 0 10px rgba(138, 43, 226, 0.4); }
+        }
+
+        /* Media query para telas menores (celulares) */
+        @media (max-width: 600px) {
+            .main-title { font-size: 2.5rem; }
+            .subtitle { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 3. O ELEMENTO HTML ONDE O REACT VAI RENDERIZAR O APP -->
     <div id="root"></div>
-  </body>
+
+    <!-- 4. SCRIPTS DO REACT E BABEL -->
+    <!-- Carrega a biblioteca do React -->
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+    <!-- Carrega a biblioteca do ReactDOM (para renderizar no navegador) -->
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+    <!-- Carrega o Babel para traduzir o código JSX para JavaScript que o navegador entende -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+    <!-- 5. O CÓDIGO DO SEU COMPONENTE REACT -->
+    <!-- Note o type="text/babel" que diz ao Babel para processar este script -->
+    <script type="text/babel">
+        function App() {
+            return (
+                <main className="content-wrapper">
+                    <h1 className="main-title">O Véu se Ergue</h1>
+                    <p className="subtitle">
+                        Nem tudo que é visto pode ser compreendido. <br />
+                        Nem tudo que é oculto permanecerá assim para sempre.
+                    </p>
+                    <button 
+                        className="cta-button"
+                        onClick={() => alert('O segredo ainda não pode ser revelado...')}
+                    >
+                        Revelar o Segredo
+                    </button>
+                </main>
+            );
+        }
+
+        // Renderiza o componente <App> dentro da div com id="root"
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
 </html>
