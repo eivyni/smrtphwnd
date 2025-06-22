@@ -1,158 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>vyni</title>
-    <!-- Incluindo Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Incluindo Font Awesome para ícones -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-image: url('https://images.unsplash.com/photo-1531366936337-7c912a4589a7?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-        .overlay {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-        .text-glow {
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-        }
-        .icon-glow {
-            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .fade-in {
-            animation: fadeIn 1.5s ease-out forwards;
-        }
-    </style>
-</head>
-<body class="text-white">
-    <!-- Contêiner principal com sobreposição escura -->
-    <div class="overlay flex items-center justify-center min-h-screen w-full">
-        <!-- Cartão de conteúdo central -->
-        <main class="text-center p-8 fade-in">
-            <!-- Nome de usuário principal -->
-            <h1 class="text-6xl md:text-8xl font-bold mb-2 text-glow">vyni</h1>
-            <!-- Slogan/Status -->
-            <p class="text-lg md:text-xl text-gray-300 mb-8 text-glow">С нами Бог</p>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Um enigma te aguarda."
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-            <!-- Seção de Status do Discord -->
-            <!-- Cartão para quando há uma atividade (jogo, música, etc.) -->
-            <div id="discord-status-card" class="bg-black/30 backdrop-blur-sm border border-white/10 rounded-lg p-4 flex items-center justify-center space-x-4 max-w-sm mx-auto mb-8 hidden">
-                <img id="game-asset-large" src="" alt="Ícone da Atividade" class="w-16 h-16 rounded-md border-2 border-white/20">
-                <div>
-                    <p id="activity-name" class="font-semibold text-lg"></p>
-                    <p id="activity-details" class="text-gray-400"></p>
-                    <p id="activity-state" class="text-gray-400"></p>
-                </div>
-            </div>
-            <!-- Cartão para status genérico (Online/Offline) -->
-            <div id="generic-status" class="bg-black/30 backdrop-blur-sm border border-white/10 rounded-lg p-4 flex items-center justify-center space-x-4 max-w-sm mx-auto mb-8">
-                <p class="text-gray-400">Carregando status...</p>
-            </div>
+    <!-- Adicionando a fonte do Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 
-            <!-- Ícones de Redes Sociais -->
-            <div class="flex justify-center space-x-6">
-                <a href="https://open.spotify.com/user/viniciusdonat22?si=53d560e3beac4fad" class="text-gray-300 hover:text-white transition-colors duration-300 transform hover:scale-110"><i class="fab fa-spotify fa-2x icon-glow"></i></a>
-                <a href="https://x.com/eivyni" class="text-gray-300 hover:text-white transition-colors duration-300 transform hover:scale-110"><i class="fab fa-twitter fa-2x icon-glow"></i></a>
-                <a href="https://steamcommunity.com/id/eivyni" class="text-gray-300 hover:text-white transition-colors duration-300 transform hover:scale-110"><i class="fab fa-steam fa-2x icon-glow"></i></a>
-                <a href="https://www.instagram.com/eivyni" class="text-gray-300 hover:text-white transition-colors duration-300 transform hover:scale-110"><i class="fab fa-instagram fa-2x icon-glow"></i></a>
-                <a href="#" class="text-gray-300 hover:text-white transition-colors duration-300 transform hover:scale-110"><i class="fab fa-discord fa-2x icon-glow"></i></a>
-            </div>
-        </main>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // =========================================================================
-            // IMPORTANTE: Substitua 'SEU_ID_DO_DISCORD_AQUI' pelo seu ID de usuário.
-            // Veja como encontrar seu ID: https://support.discord.com/hc/pt-br/articles/206346498-Onde-posso-encontrar-minhas-IDs-de-Usu%C3%A1rio-Servidor-Mensagem
-            // =========================================================================
-            const discordUserId = '337662173897555991'; // ID de exemplo para demonstração. COLE O SEU AQUI!
-
-            const statusCard = document.getElementById('discord-status-card');
-            const genericStatus = document.getElementById('generic-status');
-            
-            const activityAsset = document.getElementById('game-asset-large');
-            const activityName = document.getElementById('activity-name');
-            const activityDetails = document.getElementById('activity-details');
-            const activityState = document.getElementById('activity-state');
-
-            const lanyardApiUrl = `https://api.lanyard.rest/v1/users/${discordUserId}`;
-
-            async function updateDiscordStatus() {
-                try {
-                    const response = await fetch(lanyardApiUrl);
-                    if (!response.ok) {
-                        showStatus('Indisponível');
-                        return;
-                    }
-
-                    const { data } = await response.json();
-
-                    if (data.discord_status === 'offline') {
-                        showStatus('Offline');
-                        return;
-                    }
-
-                    // Procura por uma atividade principal como jogo ou VS Code
-                    const main_activity = data.activities.find(act => act.type === 0);
-                    // Procura pelo Spotify
-                    const spotify_activity = data.spotify;
-
-                    if (main_activity) {
-                        activityName.textContent = main_activity.name;
-                        activityDetails.textContent = main_activity.details || '';
-                        activityState.textContent = main_activity.state || '';
-
-                        if (main_activity.assets && main_activity.assets.large_image) {
-                            activityAsset.src = `https://cdn.discordapp.com/app-assets/${main_activity.application_id}/${main_activity.assets.large_image}.png`;
-                        } else {
-                            activityAsset.src = `https://placehold.co/64x64/1a202c/ffffff?text=${main_activity.name.substring(0,3)}`;
-                        }
-                        showStatusCard('activity');
-
-                    } else if (spotify_activity) {
-                        activityName.textContent = "Ouvindo Spotify";
-                        activityDetails.textContent = spotify_activity.song;
-                        activityState.textContent = `por ${spotify_activity.artist}`;
-                        activityAsset.src = spotify_activity.album_art_url;
-                        showStatusCard('activity');
-
-                    } else {
-                         showStatus(data.discord_status.charAt(0).toUpperCase() + data.discord_status.slice(1));
-                    }
-
-                } catch (error) {
-                    console.error('Falha ao atualizar o status do Discord:', error);
-                    showStatus('Erro');
-                }
-            }
-            
-            function showStatus(statusText) {
-                genericStatus.classList.remove('hidden');
-                statusCard.classList.add('hidden');
-                genericStatus.querySelector('p').textContent = statusText;
-            }
-
-            function showStatusCard() {
-                genericStatus.classList.add('hidden');
-                statusCard.classList.remove('hidden');
-            }
-
-            // Atualiza o status quando a página carrega e depois a cada 15 segundos
-            updateDiscordStatus();
-            setInterval(updateDiscordStatus, 15000); // 15000 ms = 15 segundos
-        });
-    </script>
-</body>
+    <title>O Enigma</title>
+  </head>
+  <body>
+    <noscript>Você precisa habilitar o JavaScript para rodar este app.</noscript>
+    <div id="root"></div>
+  </body>
 </html>
