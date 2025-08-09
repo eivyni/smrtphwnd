@@ -1,0 +1,51 @@
+[build]
+  # Diretório de publicação (onde estão os arquivos HTML, CSS, JS)
+  publish = "."
+  
+  # Comando de build (não é necessário para site estático simples)
+  command = ""
+
+[build.environment]
+  # Variáveis de ambiente (se necessário)
+  NODE_VERSION = "18"
+
+# Configurações de formulários
+[build.processing]
+  skip_processing = false
+
+# Redirecionamentos (opcional)
+[[redirects]]
+  from = "/home"
+  to = "/index.html"
+  status = 301
+
+[[redirects]]
+  from = "/inicio"
+  to = "/index.html" 
+  status = 301
+
+# Headers de segurança básica
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Headers específicos para arquivos estáticos
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# Configuração de error pages (opcional)
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
