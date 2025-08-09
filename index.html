@@ -1,348 +1,326 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game - Jogo da Cobrinha</title>
+    <title>🌟 Bem-vindos ao meu cantinho da web! 🌟</title>
     <style>
         body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(45deg, #ff69b4, #87ceeb, #98fb98, #ffd700);
+            background-size: 400% 400%;
+            animation: rainbow 8s ease infinite;
             margin: 0;
             padding: 20px;
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow-x: hidden;
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border: 3px solid #000;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            background: linear-gradient(90deg, #ff0080, #8000ff);
             color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .game-container {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        h1 {
             text-align: center;
-            margin-bottom: 20px;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            padding: 20px;
+            border-bottom: 3px solid #000;
+            position: relative;
+            overflow: hidden;
         }
 
-        .game-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 15px 20px;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
-            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
+        .header h1 {
+            font-size: 28px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin: 0;
+            animation: bounce 2s infinite;
         }
 
-        .score {
-            font-size: 1.2em;
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .content {
+            padding: 20px;
+            background: #f0f8ff;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px dashed #ff69b4;
+            background: #fffacd;
+            position: relative;
+        }
+
+        .section h2 {
+            color: #8b0000;
+            text-decoration: underline;
+            font-size: 18px;
+        }
+
+        .visitor-counter {
+            background: #000;
+            color: #00ff00;
+            padding: 10px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            border: 2px solid #00ff00;
+            margin: 20px 0;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 0 5px #00ff00; }
+            to { box-shadow: 0 0 20px #00ff00; }
+        }
+
+        .marquee {
+            background: #ffff00;
+            border: 2px solid #ff0000;
+            padding: 10px;
+            margin: 20px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-text {
+            animation: scroll 15s linear infinite;
+            font-weight: bold;
+            color: #ff0000;
+        }
+
+        @keyframes scroll {
+            from { transform: translateX(100%); }
+            to { transform: translateX(-100%); }
+        }
+
+        .gif-area {
+            text-align: center;
+            padding: 20px;
+            background: #e6e6fa;
+            border: 3px solid #9370db;
+        }
+
+        .construction {
+            background: #ffff00;
+            border: 3px solid #ff0000;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            animation: flash 1s infinite;
+        }
+
+        @keyframes flash {
+            0%, 50% { background: #ffff00; }
+            51%, 100% { background: #ff6347; }
+        }
+
+        .guestbook {
+            background: #ffc0cb;
+            border: 3px solid #ff1493;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .links {
+            background: #98fb98;
+            border: 3px solid #228b22;
+            padding: 20px;
+        }
+
+        .links a {
+            color: #0000ff;
+            text-decoration: underline;
             font-weight: bold;
         }
 
-        .controls {
-            font-size: 0.9em;
-            opacity: 0.8;
+        .links a:hover {
+            color: #ff0000;
+            background: #ffff00;
         }
 
-        #gameCanvas {
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
-            background: #1a1a2e;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            display: block;
-        }
-
-        .game-over {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.9);
-            padding: 40px;
-            border-radius: 20px;
-            text-align: center;
-            border: 2px solid #ff6b6b;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-            display: none;
-        }
-
-        .game-over h2 {
-            color: #ff6b6b;
-            margin-bottom: 20px;
-            font-size: 2em;
-        }
-
-        .restart-btn {
-            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+        .footer {
+            background: #4169e1;
             color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .restart-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4);
-        }
-
-        .instructions {
-            margin-top: 20px;
             text-align: center;
-            opacity: 0.7;
-            font-size: 0.9em;
-            line-height: 1.5;
+            padding: 15px;
+            font-size: 12px;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 20px;
+            animation: sparkle 3s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .music-note {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
         }
     </style>
 </head>
 <body>
-    <div class="game-container">
-        <h1>🐍 Snake Game</h1>
-        
-        <div class="game-info">
-            <div class="score">Pontuação: <span id="score">0</span></div>
-            <div class="controls">Use as setas ou WASD para jogar</div>
+    <div class="container">
+        <div class="header">
+            <div class="music-note">🎵</div>
+            <h1>🌟 Bem-vindos ao meu cantinho da web! 🌟</h1>
+            <p class="blink">⭐ ÚLTIMA ATUALIZAÇÃO: 08/08/2025 ⭐</p>
+            <div class="sparkle" style="top: 20px; left: 50px;">✨</div>
+            <div class="sparkle" style="top: 40px; right: 80px;">⭐</div>
         </div>
 
-        <canvas id="gameCanvas" width="400" height="400"></canvas>
-
-        <div class="game-over" id="gameOver">
-            <h2>Game Over!</h2>
-            <p>Pontuação Final: <span id="finalScore">0</span></p>
-            <button class="restart-btn" onclick="restartGame()">Jogar Novamente</button>
+        <div class="visitor-counter">
+            🔢 VOCÊ É O VISITANTE NÚMERO: 001337 🔢
         </div>
 
-        <div class="instructions">
-            <p>🎯 Colete a comida vermelha para crescer<br>
-            ⚠️ Evite colidir com as paredes ou com seu próprio corpo<br>
-            🎮 Use as setas do teclado ou WASD para controlar a cobra</p>
+        <div class="marquee">
+            <div class="marquee-text">
+                *** BEM-VINDOS AO MEU SITE!!! *** DEIXEM RECADO NO LIVRO DE VISITAS *** OBRIGADO PELA VISITA *** 
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>📝 Sobre Mim</h2>
+                <p><strong>Nome:</strong> Vinicius! (mas podem me chamar de Vyni!!)</p>
+                <p><strong>Idade:</strong> 19 anos</p>
+                <p><strong>Cidade:</strong> Meio do nada - RS</p>
+                <p><strong>Hobbies:</strong> Informática, jogos, música eletrônica, chatear no IRC</p>
+                <p><strong>Status:</strong> <span class="blink">ONLINE!!!</span></p>
+                <p>Oi pessoal! Este é o meu cantinho na internet onde compartilho um pouco sobre mim e minhas coisas favoritas. Espero que gostem!</p>
+            </div>
+
+            <div class="construction">
+                <h2>🚧 EM CONSTRUÇÃO 🚧</h2>
+                <p><strong>ATENÇÃO:</strong> Esta seção ainda está sendo construída! Voltem em breve para mais novidades!</p>
+            </div>
+
+            <div class="section">
+                <h2>💿 Minhas Músicas Favoritas</h2>
+                <ul>
+                    <li>🎵 Darude - Sandstorm</li>
+                    <li>🎵 Eiffel 65 - Blue</li>
+                    <li>🎵 Scatman John - Scatman</li>
+                    <li>🎵 Haddaway - What Is Love</li>
+                    <li>🎵 Aqua - Barbie Girl</li>
+                </ul>
+            </div>
+
+            <div class="gif-area">
+                <h2>🌈 ÁREA DOS GIFS ANIMADOS 🌈</h2>
+                <p>🔥 FIRE 🔥 ⚡ LIGHTNING ⚡ 💫 STARS 💫</p>
+                <p>🦄 UNICORN 🦄 🌟 SPARKLES 🌟 🎆 FIREWORKS 🎆</p>
+                <p style="font-size: 12px;">(Imaginem aqui vários GIFs animados piscando!)</p>
+            </div>
+
+            <div class="guestbook">
+                <h2>📖 Livro de Visitas</h2>
+                <p><strong>Deixem seus comentários aqui!</strong></p>
+                <div style="background: white; padding: 10px; margin: 10px 0; border: 1px solid #000;">
+                    <strong>Maria123:</strong> Que site massa! Adoro a música do Darude! 😄<br>
+                    <small>Data: 05/08/2025</small>
+                </div>
+                <div style="background: white; padding: 10px; margin: 10px 0; border: 1px solid #000;">
+                    <strong>PedroGamer:</strong> Site muito louco cara! Vou adicionar nos meus favoritos!<br>
+                    <small>Data: 03/08/2025</small>
+                </div>
+                <p><em>Para deixar seu comentário, mande um email para: joao@email.com</em></p>
+            </div>
+
+            <div class="links">
+                <h2>🔗 Meus Sites Favoritos</h2>
+                <ul>
+                    <li><a href="#">🎮 Jogos Online Grátis</a></li>
+                    <li><a href="#">💻 Downloads de Programas</a></li>
+                    <li><a href="#">🎵 Letras de Músicas</a></li>
+                    <li><a href="#">📧 Email Grátis</a></li>
+                    <li><a href="#">💬 Chat do UOL</a></li>
+                    <li><a href="#">🔍 Cadê? - Busca</a></li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>💻 Meu Setup</h2>
+                <ul>
+                    <li>🖥️ Pentium III 800MHz</li>
+                    <li>💾 128MB de RAM</li>
+                    <li>💿 CD-ROM 52x</li>
+                    <li>🔊 Placa de som Sound Blaster</li>
+                    <li>🌐 Conexão: Discada 56k</li>
+                    <li>💻 Monitor CRT 17"</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 - João's Personal Homepage</p>
+            <p>Melhor visualizado no Internet Explorer 6.0 ou superior</p>
+            <p>Resolução recomendada: 800x600</p>
         </div>
     </div>
 
     <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const scoreElement = document.getElementById('score');
-        const gameOverElement = document.getElementById('gameOver');
-        const finalScoreElement = document.getElementById('finalScore');
-
-        // Configurações do jogo
-        const gridSize = 20;
-        const tileCount = canvas.width / gridSize;
-
-        let snake = [
-            {x: 10, y: 10}
-        ];
-        let food = {};
-        let dx = 0;
-        let dy = 0;
-        let score = 0;
-        let gameRunning = false;
-
-        // Função para gerar posição aleatória da comida
-        function randomTile() {
-            return Math.floor(Math.random() * tileCount);
-        }
-
-        // Função para gerar nova comida
-        function generateFood() {
-            food = {
-                x: randomTile(),
-                y: randomTile()
-            };
+        // Efeito de sparkles aleatórios
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = '✨';
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            document.body.appendChild(sparkle);
             
-            // Verificar se a comida não está na cobra
-            for (let segment of snake) {
-                if (segment.x === food.x && segment.y === food.y) {
-                    generateFood();
-                    return;
-                }
-            }
+            setTimeout(() => {
+                sparkle.remove();
+            }, 3000);
         }
 
-        // Função para desenhar no canvas
-        function drawGame() {
-            // Limpar o canvas
-            ctx.fillStyle = '#1a1a2e';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        // Criar sparkles periodicamente
+        setInterval(createSparkle, 2000);
 
-            // Desenhar a cobra com gradiente
-            snake.forEach((segment, index) => {
-                if (index === 0) {
-                    // Cabeça da cobra
-                    ctx.fillStyle = '#4ecdc4';
-                } else {
-                    // Corpo da cobra com gradiente
-                    const alpha = 1 - (index * 0.1);
-                    ctx.fillStyle = `rgba(78, 205, 196, ${Math.max(alpha, 0.3)})`;
-                }
-                
-                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
-                
-                // Adicionar bordas arredondadas
-                ctx.strokeStyle = '#ffffff20';
-                ctx.lineWidth = 1;
-                ctx.strokeRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
-            });
-
-            // Desenhar a comida com efeito pulsante
-            const pulseSize = Math.sin(Date.now() * 0.005) * 2;
-            ctx.fillStyle = '#ff6b6b';
-            ctx.beginPath();
-            ctx.arc(
-                food.x * gridSize + gridSize / 2,
-                food.y * gridSize + gridSize / 2,
-                (gridSize / 2 - 1) + pulseSize,
-                0,
-                2 * Math.PI
-            );
-            ctx.fill();
-        }
-
-        // Função principal do jogo
-        function main() {
-            if (!gameRunning) return;
-
-            if (hasGameEnded()) {
-                gameOver();
-                return;
+        // Contador de visitantes animado
+        let count = 1337;
+        setInterval(() => {
+            count++;
+            const counter = document.querySelector('.visitor-counter');
+            if (counter) {
+                counter.innerHTML = `🔢 VOCÊ É O VISITANTE NÚMERO: ${count.toString().padStart(6, '0')} 🔢`;
             }
-
-            setTimeout(function onTick() {
-                clearCanvas();
-                moveSnake();
-                drawGame();
-                main();
-            }, 100);
-        }
-
-        function clearCanvas() {
-            ctx.fillStyle = '#1a1a2e';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-        }
-
-        function moveSnake() {
-            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
-
-            snake.unshift(head);
-
-            const didEatFood = snake[0].x === food.x && snake[0].y === food.y;
-            if (didEatFood) {
-                score += 10;
-                scoreElement.textContent = score;
-                generateFood();
-            } else {
-                snake.pop();
-            }
-        }
-
-        function hasGameEnded() {
-            for (let i = 4; i < snake.length; i++) {
-                if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) {
-                    return true;
-                }
-            }
-
-            const hitLeftWall = snake[0].x < 0;
-            const hitRightWall = snake[0].x >= tileCount;
-            const hitTopWall = snake[0].y < 0;
-            const hitBottomWall = snake[0].y >= tileCount;
-
-            return hitLeftWall || hitRightWall || hitTopWall || hitBottomWall;
-        }
-
-        function gameOver() {
-            gameRunning = false;
-            finalScoreElement.textContent = score;
-            gameOverElement.style.display = 'block';
-        }
-
-        function restartGame() {
-            snake = [{x: 10, y: 10}];
-            dx = 0;
-            dy = 0;
-            score = 0;
-            scoreElement.textContent = score;
-            generateFood();
-            gameOverElement.style.display = 'none';
-            gameRunning = true;
-            main();
-        }
-
-        // Event listeners para controles
-        document.addEventListener('keydown', changeDirection);
-
-        function changeDirection(event) {
-            const LEFT_KEY = 37;
-            const RIGHT_KEY = 39;
-            const UP_KEY = 38;
-            const DOWN_KEY = 40;
-            
-            // WASD keys
-            const A_KEY = 65;
-            const S_KEY = 83;
-            const D_KEY = 68;
-            const W_KEY = 87;
-
-            if (!gameRunning && (event.keyCode === 32 || event.key === 'Enter')) {
-                restartGame();
-                return;
-            }
-
-            if (!gameRunning) return;
-
-            const goingUp = dy === -1;
-            const goingDown = dy === 1;
-            const goingRight = dx === 1;
-            const goingLeft = dx === -1;
-
-            if ((event.keyCode === LEFT_KEY || event.keyCode === A_KEY) && !goingRight) {
-                dx = -1;
-                dy = 0;
-            }
-            if ((event.keyCode === UP_KEY || event.keyCode === W_KEY) && !goingDown) {
-                dx = 0;
-                dy = -1;
-            }
-            if ((event.keyCode === RIGHT_KEY || event.keyCode === D_KEY) && !goingLeft) {
-                dx = 1;
-                dy = 0;
-            }
-            if ((event.keyCode === DOWN_KEY || event.keyCode === S_KEY) && !goingUp) {
-                dx = 0;
-                dy = 1;
-            }
-        }
-
-        // Inicializar o jogo
-        generateFood();
-        drawGame();
-        
-        // Permitir iniciar o jogo com qualquer tecla
-        document.addEventListener('keydown', function startGame(e) {
-            if (!gameRunning) {
-                gameRunning = true;
-                main();
-                document.removeEventListener('keydown', startGame);
-            }
-        }, { once: true });
+        }, 5000);
     </script>
 </body>
 </html>
