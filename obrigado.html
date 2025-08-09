@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Obrigado pelo comentário! 🎉</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="music-note">🎵</div>
+            <h1>🎉 OBRIGADO! 🎉</h1>
+            <p class="blink">⭐ SEU COMENTÁRIO FOI RECEBIDO! ⭐</p>
+            <div class="sparkle" style="top: 20px; left: 50px;">✨</div>
+            <div class="sparkle" style="top: 40px; right: 80px;">⭐</div>
+        </div>
+
+        <div class="content" style="text-align: center; padding: 40px;">
+            <div class="section" style="background: #90EE90; border: 3px solid #228B22;">
+                <h2>📝 Comentário Enviado com Sucesso!</h2>
+                <p style="font-size: 18px;">Muito obrigado por assinar meu livro de visitas! 😊</p>
+                <p>Seu comentário passará por moderação e aparecerá no site em breve.</p>
+                <p>Volte sempre! 🌟</p>
+            </div>
+
+            <div class="gif-area" style="margin: 30px 0;">
+                <h2>🎊 CELEBRAÇÃO! 🎊</h2>
+                <p style="font-size: 24px;">🎉 🎊 ✨ 🌟 ⭐ 🎆 🎈</p>
+                <p>Você é demais! Obrigado por fazer parte da minha jornada na web!</p>
+            </div>
+
+            <div class="construction" style="background: #FFD700; border-color: #FFA500;">
+                <h2>🔄 REDIRECIONAMENTO AUTOMÁTICO</h2>
+                <p>Você será redirecionado para a página inicial em <span id="countdown">10</span> segundos...</p>
+                <p><a href="index.html" style="color: #000; font-weight: bold;">Ou clique aqui para voltar agora!</a></p>
+            </div>
+
+            <div class="section">
+                <h2>📊 Estatísticas</h2>
+                <p>🎯 Você é o <strong>visitante número <span id="visitorNumber">1337</span></strong>!</p>
+                <p>📝 Total de comentários recebidos hoje: <strong id="todayComments">5</strong></p>
+                <p>⭐ Sua avaliação média do site: <strong>10/10</strong> ⭐</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 - João's Personal Homepage</p>
+            <p>Obrigado por visitar meu cantinho da web! 🌐❤️</p>
+            <p>🌟 Powered by Netlify Forms 🌟</p>
+        </div>
+    </div>
+
+    <script>
+        // Contagem regressiva para redirecionamento
+        let countdown = 10;
+        const countdownElement = document.getElementById('countdown');
+        
+        const timer = setInterval(() => {
+            countdown--;
+            if (countdownElement) {
+                countdownElement.textContent = countdown;
+            }
+            
+            if (countdown <= 0) {
+                clearInterval(timer);
+                window.location.href = 'index.html';
+            }
+        }, 1000);
+
+        // Sparkles de celebração contínuos
+        function createCelebrationSparkle() {
+            const sparkles = ['🎉', '🎊', '⭐', '✨', '🌟', '🎆', '🎈'];
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = sparkles[Math.floor(Math.random() * sparkles.length)];
+            sparkle.style.position = 'fixed';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            sparkle.style.zIndex = '1000';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.fontSize = '24px';
+            sparkle.style.animation = 'sparkle 2s ease-out forwards';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.remove();
+                }
+            }, 2000);
+        }
+
+        // Criar sparkles a cada 500ms
+        setInterval(createCelebrationSparkle, 500);
+
+        // Atualizar estatísticas
+        document.addEventListener('DOMContentLoaded', function() {
+            const visitorElement = document.getElementById('visitorNumber');
+            if (visitorElement) {
+                const count = localStorage.getItem('visitorCount') || 1337;
+                visitorElement.textContent = count;
+            }
+
+            const todayElement = document.getElementById('todayComments');
+            if (todayElement) {
+                const today = new Date().toDateString();
+                let todayComments = localStorage.getItem('todayComments-' + today) || 0;
+                todayComments = parseInt(todayComments) + 1;
+                localStorage.setItem('todayComments-' + today, todayComments);
+                todayElement.textContent = todayComments;
+            }
+        });
+    </script>
+</body>
+</html>
