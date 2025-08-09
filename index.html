@@ -4,195 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🌟 Bem-vindos ao meu cantinho da web! 🌟</title>
-    <style>
-        body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background: linear-gradient(45deg, #ff69b4, #87ceeb, #98fb98, #ffd700);
-            background-size: 400% 400%;
-            animation: rainbow 8s ease infinite;
-            margin: 0;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-
-        @keyframes rainbow {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            border: 3px solid #000;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-        }
-
-        .header {
-            background: linear-gradient(90deg, #ff0080, #8000ff);
-            color: white;
-            text-align: center;
-            padding: 20px;
-            border-bottom: 3px solid #000;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header h1 {
-            font-size: 28px;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-            margin: 0;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        .blink {
-            animation: blink 1s infinite;
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        .content {
-            padding: 20px;
-            background: #f0f8ff;
-        }
-
-        .section {
-            margin: 20px 0;
-            padding: 15px;
-            border: 2px dashed #ff69b4;
-            background: #fffacd;
-            position: relative;
-        }
-
-        .section h2 {
-            color: #8b0000;
-            text-decoration: underline;
-            font-size: 18px;
-        }
-
-        .visitor-counter {
-            background: #000;
-            color: #00ff00;
-            padding: 10px;
-            font-family: 'Courier New', monospace;
-            text-align: center;
-            border: 2px solid #00ff00;
-            margin: 20px 0;
-            animation: glow 2s infinite alternate;
-        }
-
-        @keyframes glow {
-            from { box-shadow: 0 0 5px #00ff00; }
-            to { box-shadow: 0 0 20px #00ff00; }
-        }
-
-        .marquee {
-            background: #ffff00;
-            border: 2px solid #ff0000;
-            padding: 10px;
-            margin: 20px 0;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .marquee-text {
-            animation: scroll 15s linear infinite;
-            font-weight: bold;
-            color: #ff0000;
-        }
-
-        @keyframes scroll {
-            from { transform: translateX(100%); }
-            to { transform: translateX(-100%); }
-        }
-
-        .gif-area {
-            text-align: center;
-            padding: 20px;
-            background: #e6e6fa;
-            border: 3px solid #9370db;
-        }
-
-        .construction {
-            background: #ffff00;
-            border: 3px solid #ff0000;
-            padding: 15px;
-            margin: 20px 0;
-            text-align: center;
-            animation: flash 1s infinite;
-        }
-
-        @keyframes flash {
-            0%, 50% { background: #ffff00; }
-            51%, 100% { background: #ff6347; }
-        }
-
-        .guestbook {
-            background: #ffc0cb;
-            border: 3px solid #ff1493;
-            padding: 20px;
-            margin: 20px 0;
-        }
-
-        .links {
-            background: #98fb98;
-            border: 3px solid #228b22;
-            padding: 20px;
-        }
-
-        .links a {
-            color: #0000ff;
-            text-decoration: underline;
-            font-weight: bold;
-        }
-
-        .links a:hover {
-            color: #ff0000;
-            background: #ffff00;
-        }
-
-        .footer {
-            background: #4169e1;
-            color: white;
-            text-align: center;
-            padding: 15px;
-            font-size: 12px;
-        }
-
-        .sparkle {
-            position: absolute;
-            font-size: 20px;
-            animation: sparkle 3s infinite;
-        }
-
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0); }
-            50% { opacity: 1; transform: scale(1); }
-        }
-
-        .music-note {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 24px;
-            animation: float 4s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -205,7 +17,7 @@
         </div>
 
         <div class="visitor-counter">
-            🔢 VOCÊ É O VISITANTE NÚMERO: 001337 🔢
+            🔢 VOCÊ É O VISITANTE NÚMERO: <span id="visitorCount">001337</span> 🔢
         </div>
 
         <div class="marquee">
@@ -217,9 +29,9 @@
         <div class="content">
             <div class="section">
                 <h2>📝 Sobre Mim</h2>
-                <p><strong>Nome:</strong> Vinicius! (mas podem me chamar de Vyni!!)</p>
-                <p><strong>Idade:</strong> 19 anos</p>
-                <p><strong>Cidade:</strong> Meio do nada - RS</p>
+                <p><strong>Nome:</strong> João da Silva (mas podem me chamar de Johnny!)</p>
+                <p><strong>Idade:</strong> 23 anos</p>
+                <p><strong>Cidade:</strong> São Paulo - SP</p>
                 <p><strong>Hobbies:</strong> Informática, jogos, música eletrônica, chatear no IRC</p>
                 <p><strong>Status:</strong> <span class="blink">ONLINE!!!</span></p>
                 <p>Oi pessoal! Este é o meu cantinho na internet onde compartilho um pouco sobre mim e minhas coisas favoritas. Espero que gostem!</p>
@@ -251,26 +63,54 @@
             <div class="guestbook">
                 <h2>📖 Livro de Visitas</h2>
                 <p><strong>Deixem seus comentários aqui!</strong></p>
-                <div style="background: white; padding: 10px; margin: 10px 0; border: 1px solid #000;">
-                    <strong>Maria123:</strong> Que site massa! Adoro a música do Darude! 😄<br>
-                    <small>Data: 05/08/2025</small>
+                
+                <!-- Formulário Netlify -->
+                <div class="guestbook-form">
+                    <form name="guestbook" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/obrigado.html">
+                        <input type="hidden" name="form-name" value="guestbook" />
+                        
+                        <!-- Campo honeypot para spam -->
+                        <p style="display: none;">
+                            <label>Não preencha este campo: <input name="bot-field" /></label>
+                        </p>
+                        
+                        <p><strong>Nome:</strong> <input type="text" name="nome" required></p>
+                        <p><strong>Email:</strong> <input type="email" name="email" required></p>
+                        <p><strong>Website (opcional):</strong> <input type="url" name="website"></p>
+                        <p><strong>Comentário:</strong><br>
+                        <textarea name="comentario" rows="4" cols="50" required></textarea></p>
+                        <button type="submit">💬 Assinar o Livro!</button>
+                    </form>
                 </div>
-                <div style="background: white; padding: 10px; margin: 10px 0; border: 1px solid #000;">
-                    <strong>PedroGamer:</strong> Site muito louco cara! Vou adicionar nos meus favoritos!<br>
-                    <small>Data: 03/08/2025</small>
+
+                <!-- Comentários existentes -->
+                <div class="existing-comments">
+                    <div class="comment">
+                        <strong>Maria123:</strong> Que site massa! Adoro a música do Darude! 😄<br>
+                        <small>Data: 05/08/2025</small>
+                    </div>
+                    <div class="comment">
+                        <strong>PedroGamer:</strong> Site muito louco cara! Vou adicionar nos meus favoritos!<br>
+                        <small>Data: 03/08/2025</small>
+                    </div>
+                    <div class="comment">
+                        <strong>AnnaWeb:</strong> Nostalgia total! Me lembrou do meu primeiro site no GeoCities! 🌟<br>
+                        <small>Data: 01/08/2025</small>
+                    </div>
                 </div>
-                <p><em>Para deixar seu comentário, mande um email para: viniciusdonat22@gmail.com</em></p>
+                
+                <p><em style="font-size: 11px;">💡 Os comentários passam por moderação antes de aparecer no site!</em></p>
             </div>
 
             <div class="links">
                 <h2>🔗 Meus Sites Favoritos</h2>
                 <ul>
-                    <li><a href="#">🎮 Jogos Online Grátis</a></li>
-                    <li><a href="#">💻 Downloads de Programas</a></li>
-                    <li><a href="#">🎵 Letras de Músicas</a></li>
-                    <li><a href="#">📧 Email Grátis</a></li>
-                    <li><a href="#">💬 Chat do UOL</a></li>
-                    <li><a href="#">🔍 Cadê? - Busca</a></li>
+                    <li><a href="#" onclick="alert('Site em manutenção!')">🎮 Jogos Online Grátis</a></li>
+                    <li><a href="#" onclick="alert('Download indisponível!')">💻 Downloads de Programas</a></li>
+                    <li><a href="#" onclick="alert('Link quebrado!')">🎵 Letras de Músicas</a></li>
+                    <li><a href="mailto:joao@email.com">📧 Meu Email</a></li>
+                    <li><a href="#" onclick="alert('Chat offline!')">💬 Chat do UOL</a></li>
+                    <li><a href="#" onclick="alert('Servidor fora do ar!')">🔍 Cadê? - Busca</a></li>
                 </ul>
             </div>
 
@@ -285,42 +125,24 @@
                     <li>💻 Monitor CRT 17"</li>
                 </ul>
             </div>
+
+            <div class="section">
+                <h2>📊 Estatísticas do Site</h2>
+                <p>📈 Total de visitas: <span id="totalVisits">2.547</span></p>
+                <p>📝 Comentários no livro: <span id="totalComments">23</span></p>
+                <p>🕒 Online desde: Janeiro/2025</p>
+                <p>⭐ Última atualização: <span id="lastUpdate">08/08/2025</span></p>
+            </div>
         </div>
 
         <div class="footer">
-            <p>© 2025 - Vyni's Personal Homepage</p>
+            <p>© 2025 - João's Personal Homepage</p>
             <p>Melhor visualizado no Internet Explorer 6.0 ou superior</p>
             <p>Resolução recomendada: 800x600</p>
+            <p>🌐 Hospedado com ❤️ no Netlify</p>
         </div>
     </div>
 
-    <script>
-        // Efeito de sparkles aleatórios
-        function createSparkle() {
-            const sparkle = document.createElement('div');
-            sparkle.innerHTML = '✨';
-            sparkle.className = 'sparkle';
-            sparkle.style.left = Math.random() * window.innerWidth + 'px';
-            sparkle.style.top = Math.random() * window.innerHeight + 'px';
-            document.body.appendChild(sparkle);
-            
-            setTimeout(() => {
-                sparkle.remove();
-            }, 3000);
-        }
-
-        // Criar sparkles periodicamente
-        setInterval(createSparkle, 2000);
-
-        // Contador de visitantes animado
-        let count = 1337;
-        setInterval(() => {
-            count++;
-            const counter = document.querySelector('.visitor-counter');
-            if (counter) {
-                counter.innerHTML = `🔢 VOCÊ É O VISITANTE NÚMERO: ${count.toString().padStart(6, '0')} 🔢`;
-            }
-        }, 5000);
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
