@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚫 Erro 404 - Página não encontrada! 🚫</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(45deg, #ff69b4, #87ceeb, #98fb98, #ffd700);
+            background-size: 400% 400%;
+            animation: rainbow 8s ease infinite;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border: 3px solid #000;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        .header {
+            background: linear-gradient(90deg, #ff0000, #8B0000);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 3px solid #000;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin: 0;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .error-code {
+            font-size: 72px;
+            color: #ff0000;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            margin: 30px 0;
+            animation: bounce 1s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-20px); }
+            60% { transform: translateY(-10px); }
+        }
+
+        .content {
+            padding: 40px;
+            background: #f0f8ff;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px dashed #ff0000;
+            background: #ffe4e1;
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+            color: #ff0000;
+            font-weight: bold;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .construction {
+            background: #ffff00;
+            border: 3px solid #ff0000;
+            padding: 15px;
+            margin: 20px 0;
+            animation: flash 1s infinite;
+        }
+
+        @keyframes flash {
+            0%, 50% { background: #ffff00; }
+            51%, 100% { background: #ff6347; }
+        }
+
+        a {
+            color: #0000ff;
+            text-decoration: underline;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        a:hover {
+            color: #ff0000;
+            background: #ffff00;
+        }
+
+        .footer {
+            background: #4169e1;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+        }
+
+        .broken-gif {
+            font-size: 48px;
+            margin: 20px 0;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚫 ERRO 404 🚫</h1>
+            <p class="blink">⚠️ PÁGINA NÃO ENCONTRADA! ⚠️</p>
+        </div>
+
+        <div class="content">
+            <div class="error-code">404</div>
+            
+            <div class="section">
+                <h2>😵 Ops! Página não existe!</h2>
+                <p>A página que você está procurando não foi encontrada no meu servidor!</p>
+                <p>Pode ser que:</p>
+                <ul style="text-align: left; display: inline-block;">
+                    <li>🔗 O link está quebrado</li>
+                    <li>📁 A página foi movida ou deletada</li>
+                    <li>⌨️ Você digitou o endereço errado</li>
+                    <li>🚧 A página ainda está em construção</li>
+                </ul>
+            </div>
+
+            <div class="broken-gif">
+                💥 🖼️ 💔 🚫 ❌
+            </div>
+
+            <div class="construction">
+                <h2>🔄 O QUE FAZER AGORA?</h2>
+                <p><a href="./index.html">🏠 Voltar para a página inicial</a></p>
+                <p style="margin: 15px 0;">ou</p>
+                <p><a href="javascript:history.back()">⬅️ Voltar para a página anterior</a></p>
+            </div>
+
+            <div class="section">
+                <h2>📧 Reportar Problema</h2>
+                <p>Se você chegou aqui através de um link do meu site, por favor me avise!</p>
+                <p><strong>Email:</strong> joao@email.com</p>
+                <p>Obrigado por ajudar a manter o site funcionando! 🙏</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>© 2025 - João's Personal Homepage</p>
+            <p>Erro 404 - Página não encontrada</p>
+            <p>🌐 Se perdeu? Sem problemas! Volta pro início! 🏠</p>
+        </div>
+    </div>
+
+    <script>
+        // Easter egg - clicar no 404 múltiplas vezes
+        let clickCount = 0;
+        document.querySelector('.error-code').addEventListener('click', function() {
+            clickCount++;
+            if (clickCount === 5) {
+                alert('🎮 Easter Egg! Você clicou 5 vezes no 404! 🏆');
+                this.style.transform = 'rotate(360deg)';
+                this.style.transition = 'transform 1s';
+            }
+            if (clickCount === 10) {
+                alert('🔥 Você é persistente! Aqui está um prêmio: 🌟✨🎉');
+                document.body.style.animation = 'rainbow 0.5s ease infinite';
+            }
+        });
+
+        // Sparkles de erro
+        function createErrorSparkle() {
+            const errorEmojis = ['💥', '❌', '🚫', '💔', '⚠️'];
+            const sparkle = document.createElement('div');
+            sparkle.innerHTML = errorEmojis[Math.floor(Math.random() * errorEmojis.length)];
+            sparkle.style.position = 'fixed';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            sparkle.style.zIndex = '1000';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.fontSize = '20px';
+            sparkle.style.opacity = '0.7';
+            sparkle.style.animation = 'bounce 2s ease-out forwards';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.remove();
+                }
+            }, 2000);
+        }
+
+        // Criar sparkles de erro periodicamente
+        setInterval(createErrorSparkle, 3000);
+    </script>
+</body>
+</html>
