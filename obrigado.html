@@ -4,7 +4,147 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎉 Obrigado pelo comentário! 🎉</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(45deg, #ff69b4, #87ceeb, #98fb98, #ffd700);
+            background-size: 400% 400%;
+            animation: rainbow 8s ease infinite;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border: 3px solid #000;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            background: linear-gradient(90deg, #ff0080, #8000ff);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-bottom: 3px solid #000;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin: 0;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        .blink {
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        .content {
+            padding: 40px;
+            text-align: center;
+            background: #f0f8ff;
+        }
+
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 2px dashed #ff69b4;
+            background: #fffacd;
+            position: relative;
+        }
+
+        .section h2 {
+            color: #8b0000;
+            text-decoration: underline;
+            font-size: 18px;
+        }
+
+        .success-section {
+            background: #90EE90 !important;
+            border: 3px solid #228B22 !important;
+        }
+
+        .gif-area {
+            text-align: center;
+            padding: 20px;
+            background: #e6e6fa;
+            border: 3px solid #9370db;
+            margin: 30px 0;
+        }
+
+        .construction {
+            background: #FFD700;
+            border: 3px solid #FFA500;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .footer {
+            background: #4169e1;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 12px;
+        }
+
+        .sparkle {
+            position: absolute;
+            font-size: 20px;
+            animation: sparkle 3s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .music-note {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        a {
+            color: #0000ff;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #ff0000;
+            background: #ffff00;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -16,24 +156,24 @@
             <div class="sparkle" style="top: 40px; right: 80px;">⭐</div>
         </div>
 
-        <div class="content" style="text-align: center; padding: 40px;">
-            <div class="section" style="background: #90EE90; border: 3px solid #228B22;">
+        <div class="content">
+            <div class="section success-section">
                 <h2>📝 Comentário Enviado com Sucesso!</h2>
                 <p style="font-size: 18px;">Muito obrigado por assinar meu livro de visitas! 😊</p>
                 <p>Seu comentário passará por moderação e aparecerá no site em breve.</p>
                 <p>Volte sempre! 🌟</p>
             </div>
 
-            <div class="gif-area" style="margin: 30px 0;">
+            <div class="gif-area">
                 <h2>🎊 CELEBRAÇÃO! 🎊</h2>
                 <p style="font-size: 24px;">🎉 🎊 ✨ 🌟 ⭐ 🎆 🎈</p>
                 <p>Você é demais! Obrigado por fazer parte da minha jornada na web!</p>
             </div>
 
-            <div class="construction" style="background: #FFD700; border-color: #FFA500;">
+            <div class="construction">
                 <h2>🔄 REDIRECIONAMENTO AUTOMÁTICO</h2>
                 <p>Você será redirecionado para a página inicial em <span id="countdown">10</span> segundos...</p>
-                <p><a href="index.html" style="color: #000; font-weight: bold;">Ou clique aqui para voltar agora!</a></p>
+                <p><a href="./index.html">Ou clique aqui para voltar agora!</a></p>
             </div>
 
             <div class="section">
@@ -64,7 +204,7 @@
             
             if (countdown <= 0) {
                 clearInterval(timer);
-                window.location.href = 'index.html';
+                window.location.href = './index.html';
             }
         }, 1000);
 
@@ -94,19 +234,25 @@
 
         // Atualizar estatísticas
         document.addEventListener('DOMContentLoaded', function() {
-            const visitorElement = document.getElementById('visitorNumber');
-            if (visitorElement) {
-                const count = localStorage.getItem('visitorCount') || 1337;
-                visitorElement.textContent = count;
-            }
+            // Sincronizar com localStorage se disponível
+            try {
+                const visitorElement = document.getElementById('visitorNumber');
+                if (visitorElement && localStorage) {
+                    const count = localStorage.getItem('visitorCount') || 1337;
+                    visitorElement.textContent = count;
+                }
 
-            const todayElement = document.getElementById('todayComments');
-            if (todayElement) {
-                const today = new Date().toDateString();
-                let todayComments = localStorage.getItem('todayComments-' + today) || 0;
-                todayComments = parseInt(todayComments) + 1;
-                localStorage.setItem('todayComments-' + today, todayComments);
-                todayElement.textContent = todayComments;
+                const todayElement = document.getElementById('todayComments');
+                if (todayElement && localStorage) {
+                    const today = new Date().toDateString();
+                    let todayComments = localStorage.getItem('todayComments-' + today) || 0;
+                    todayComments = parseInt(todayComments) + 1;
+                    localStorage.setItem('todayComments-' + today, todayComments);
+                    todayElement.textContent = todayComments;
+                }
+            } catch(e) {
+                // Fallback se localStorage não estiver disponível
+                console.log('localStorage não disponível');
             }
         });
     </script>
