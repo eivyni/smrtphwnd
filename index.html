@@ -1,154 +1,348 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A mudança te aguarda.">
-    <title>С нами Бог</title>
-
-    <!-- 1. FONTE DO GOOGLE -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- 2. ESTILOS CSS -->
+    <title>Snake Game - Jogo da Cobrinha</title>
     <style>
-        /* Reset básico e configurações do corpo da página */
         body {
             margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-                sans-serif;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-
-            /* O fundo escuro e misterioso. Não é preto puro, o que é mais suave para os olhos. */
-            background-color: #0a0a14;
-        }
-
-        /* Container principal da aplicação */
-        #root {
-            text-align: center;
+            padding: 20px;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            color: #e0e0e0; /* Cor de texto suave, não branco puro */
-            font-family: 'Cinzel', serif; /* Nossa fonte enigmática */
-            overflow: hidden; /* Garante que nada "vaze" durante as animações */
         }
 
-        /* Wrapper para o conteúdo que vai ser animado */
-        .content-wrapper {
-            /* Animação de fade-in para o conteúdo aparecer suavemente */
-            animation: fadeIn 3s ease-in-out forwards;
-            opacity: 0; /* Começa invisível */
-            transform: translateY(20px); /* Começa um pouco abaixo para um efeito de "subida" */
+        .game-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* Título Principal */
-        .main-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            letter-spacing: 4px; /* Espaçamento entre letras para um ar mais grandioso */
-            margin-bottom: 1rem;
-            
-            /* Sombra sutil que dá um brilho roxo ao texto */
-            text-shadow: 0 0 15px rgba(138, 43, 226, 0.6);
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        /* Parágrafo de texto */
-        .subtitle {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto 2.5rem auto;
-            line-height: 1.6;
-            font-weight: 400;
-            letter-spacing: 1px;
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* Botão de Call-to-Action */
-        .cta-button {
-            background: transparent;
-            border: 2px solid #8A2BE2; /* Roxo Azulado (BlueViolet) */
-            color: #e0e0e0;
+        .score {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .controls {
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+
+        #gameCanvas {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            background: #1a1a2e;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            display: block;
+        }
+
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid #ff6b6b;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            display: none;
+        }
+
+        .game-over h2 {
+            color: #ff6b6b;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+
+        .restart-btn {
+            background: linear-gradient(45deg, #4ecdc4, #44a08d);
+            color: white;
+            border: none;
             padding: 15px 30px;
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            font-weight: 700;
+            border-radius: 25px;
+            font-size: 1.1em;
             cursor: pointer;
-            letter-spacing: 2px;
-            transition: all 0.4s ease; /* Transição suave para o efeito hover */
-            
-            /* Animação de pulsação sutil para chamar a atenção */
-            animation: pulse 2.5s infinite ease-in-out;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        /* Efeito hover para o botão */
-        .cta-button:hover {
-            background: #8A2BE2;
-            color: #0a0a14; /* Cor do texto muda para a cor de fundo */
-            box-shadow: 0 0 25px #8A2BE2; /* Efeito de brilho intenso */
-            animation-play-state: paused; /* Pausa a animação de pulso no hover */
+        .restart-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0, 0, 0, 0.4);
         }
 
-        /* Keyframes para as animações */
-
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 10px rgba(138, 43, 226, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 0 20px rgba(138, 43, 226, 0.8); }
-            100% { transform: scale(1); box-shadow: 0 0 10px rgba(138, 43, 226, 0.4); }
-        }
-
-        /* Media query para telas menores (celulares) */
-        @media (max-width: 600px) {
-            .main-title { font-size: 2.5rem; }
-            .subtitle { font-size: 1rem; }
+        .instructions {
+            margin-top: 20px;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9em;
+            line-height: 1.5;
         }
     </style>
 </head>
 <body>
-    <!-- 3. O ELEMENTO HTML ONDE O REACT VAI RENDERIZAR O APP -->
-    <div id="root"></div>
+    <div class="game-container">
+        <h1>🐍 Snake Game</h1>
+        
+        <div class="game-info">
+            <div class="score">Pontuação: <span id="score">0</span></div>
+            <div class="controls">Use as setas ou WASD para jogar</div>
+        </div>
 
-    <!-- 4. SCRIPTS DO REACT E BABEL -->
-    <!-- Carrega a biblioteca do React -->
-    <script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
-    <!-- Carrega a biblioteca do ReactDOM (para renderizar no navegador) -->
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
-    <!-- Carrega o Babel para traduzir o código JSX para JavaScript que o navegador entende -->
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
 
-    <!-- 5. O CÓDIGO DO SEU COMPONENTE REACT -->
-    <!-- Note o type="text/babel" que diz ao Babel para processar este script -->
-    <script type="text/babel">
-        function App() {
-            return (
-                <main className="content-wrapper">
-                    <h1 className="main-title">С нами Бог</h1>
-                    <p className="subtitle">
-                        smartphOWNED? <br />
-                        ΚΥΝΟΔΟΝΤΑΣ.
-                    </p>
-                    <button 
-                        className="cta-button"
-                        onClick={() => alert('Aguarde e verá...')}
-                    >
-                        Você sabe de algo?
-                    </button>
-                </main>
-            );
+        <div class="game-over" id="gameOver">
+            <h2>Game Over!</h2>
+            <p>Pontuação Final: <span id="finalScore">0</span></p>
+            <button class="restart-btn" onclick="restartGame()">Jogar Novamente</button>
+        </div>
+
+        <div class="instructions">
+            <p>🎯 Colete a comida vermelha para crescer<br>
+            ⚠️ Evite colidir com as paredes ou com seu próprio corpo<br>
+            🎮 Use as setas do teclado ou WASD para controlar a cobra</p>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreElement = document.getElementById('score');
+        const gameOverElement = document.getElementById('gameOver');
+        const finalScoreElement = document.getElementById('finalScore');
+
+        // Configurações do jogo
+        const gridSize = 20;
+        const tileCount = canvas.width / gridSize;
+
+        let snake = [
+            {x: 10, y: 10}
+        ];
+        let food = {};
+        let dx = 0;
+        let dy = 0;
+        let score = 0;
+        let gameRunning = false;
+
+        // Função para gerar posição aleatória da comida
+        function randomTile() {
+            return Math.floor(Math.random() * tileCount);
         }
 
-        // Renderiza o componente <App> dentro da div com id="root"
-        ReactDOM.render(<App />, document.getElementById('root'));
+        // Função para gerar nova comida
+        function generateFood() {
+            food = {
+                x: randomTile(),
+                y: randomTile()
+            };
+            
+            // Verificar se a comida não está na cobra
+            for (let segment of snake) {
+                if (segment.x === food.x && segment.y === food.y) {
+                    generateFood();
+                    return;
+                }
+            }
+        }
+
+        // Função para desenhar no canvas
+        function drawGame() {
+            // Limpar o canvas
+            ctx.fillStyle = '#1a1a2e';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Desenhar a cobra com gradiente
+            snake.forEach((segment, index) => {
+                if (index === 0) {
+                    // Cabeça da cobra
+                    ctx.fillStyle = '#4ecdc4';
+                } else {
+                    // Corpo da cobra com gradiente
+                    const alpha = 1 - (index * 0.1);
+                    ctx.fillStyle = `rgba(78, 205, 196, ${Math.max(alpha, 0.3)})`;
+                }
+                
+                ctx.fillRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+                
+                // Adicionar bordas arredondadas
+                ctx.strokeStyle = '#ffffff20';
+                ctx.lineWidth = 1;
+                ctx.strokeRect(segment.x * gridSize, segment.y * gridSize, gridSize - 2, gridSize - 2);
+            });
+
+            // Desenhar a comida com efeito pulsante
+            const pulseSize = Math.sin(Date.now() * 0.005) * 2;
+            ctx.fillStyle = '#ff6b6b';
+            ctx.beginPath();
+            ctx.arc(
+                food.x * gridSize + gridSize / 2,
+                food.y * gridSize + gridSize / 2,
+                (gridSize / 2 - 1) + pulseSize,
+                0,
+                2 * Math.PI
+            );
+            ctx.fill();
+        }
+
+        // Função principal do jogo
+        function main() {
+            if (!gameRunning) return;
+
+            if (hasGameEnded()) {
+                gameOver();
+                return;
+            }
+
+            setTimeout(function onTick() {
+                clearCanvas();
+                moveSnake();
+                drawGame();
+                main();
+            }, 100);
+        }
+
+        function clearCanvas() {
+            ctx.fillStyle = '#1a1a2e';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        function moveSnake() {
+            const head = {x: snake[0].x + dx, y: snake[0].y + dy};
+
+            snake.unshift(head);
+
+            const didEatFood = snake[0].x === food.x && snake[0].y === food.y;
+            if (didEatFood) {
+                score += 10;
+                scoreElement.textContent = score;
+                generateFood();
+            } else {
+                snake.pop();
+            }
+        }
+
+        function hasGameEnded() {
+            for (let i = 4; i < snake.length; i++) {
+                if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) {
+                    return true;
+                }
+            }
+
+            const hitLeftWall = snake[0].x < 0;
+            const hitRightWall = snake[0].x >= tileCount;
+            const hitTopWall = snake[0].y < 0;
+            const hitBottomWall = snake[0].y >= tileCount;
+
+            return hitLeftWall || hitRightWall || hitTopWall || hitBottomWall;
+        }
+
+        function gameOver() {
+            gameRunning = false;
+            finalScoreElement.textContent = score;
+            gameOverElement.style.display = 'block';
+        }
+
+        function restartGame() {
+            snake = [{x: 10, y: 10}];
+            dx = 0;
+            dy = 0;
+            score = 0;
+            scoreElement.textContent = score;
+            generateFood();
+            gameOverElement.style.display = 'none';
+            gameRunning = true;
+            main();
+        }
+
+        // Event listeners para controles
+        document.addEventListener('keydown', changeDirection);
+
+        function changeDirection(event) {
+            const LEFT_KEY = 37;
+            const RIGHT_KEY = 39;
+            const UP_KEY = 38;
+            const DOWN_KEY = 40;
+            
+            // WASD keys
+            const A_KEY = 65;
+            const S_KEY = 83;
+            const D_KEY = 68;
+            const W_KEY = 87;
+
+            if (!gameRunning && (event.keyCode === 32 || event.key === 'Enter')) {
+                restartGame();
+                return;
+            }
+
+            if (!gameRunning) return;
+
+            const goingUp = dy === -1;
+            const goingDown = dy === 1;
+            const goingRight = dx === 1;
+            const goingLeft = dx === -1;
+
+            if ((event.keyCode === LEFT_KEY || event.keyCode === A_KEY) && !goingRight) {
+                dx = -1;
+                dy = 0;
+            }
+            if ((event.keyCode === UP_KEY || event.keyCode === W_KEY) && !goingDown) {
+                dx = 0;
+                dy = -1;
+            }
+            if ((event.keyCode === RIGHT_KEY || event.keyCode === D_KEY) && !goingLeft) {
+                dx = 1;
+                dy = 0;
+            }
+            if ((event.keyCode === DOWN_KEY || event.keyCode === S_KEY) && !goingUp) {
+                dx = 0;
+                dy = 1;
+            }
+        }
+
+        // Inicializar o jogo
+        generateFood();
+        drawGame();
+        
+        // Permitir iniciar o jogo com qualquer tecla
+        document.addEventListener('keydown', function startGame(e) {
+            if (!gameRunning) {
+                gameRunning = true;
+                main();
+                document.removeEventListener('keydown', startGame);
+            }
+        }, { once: true });
     </script>
 </body>
 </html>
